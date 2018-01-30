@@ -11,7 +11,7 @@ app.use('/data',require('./routers/data'));
 app.use('/index',require('./routers/data'));
 app.use('/shop',require('./routers/shop'));
 
-//mongoose.connect('mongodb://192.168.1.101:27017/blog', function(err) {
+//mongoose.connect('mongodb://192.168.1.102:27017/blog', function(err) {
 // if (err) {
   //  console.log('数据库连接失败');
  //} else {

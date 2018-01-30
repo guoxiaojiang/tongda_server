@@ -16,7 +16,7 @@ module.exports={
         id:1,
         rating:8.8,
         jiamjie:'101分钟|动作|休.杰克曼',
-        cover:'http://192.168.1.101:8888/public/img/movie-cover/4.png',
+        cover:'http://192.168.1.102:8888/public/img/movie-cover/4.png',
         sessions:[
             [
                 {start:'11:00',
@@ -65,7 +65,7 @@ module.exports={
             id:2,
             rating:7.6,
             jiamjie:'101分钟|动作|米拉.乔沃维奇',
-            cover:'http://192.168.1.101:8888/public/img/movie-cover/1.png'
+            cover:'http://192.168.1.102:8888/public/img/movie-cover/1.png'
             ,
             sessions:[
                 [
@@ -115,7 +115,7 @@ module.exports={
             id:3,
             rating:6.9,
             jiamjie:'101分钟|动作|迈克尔.法斯宾德',
-            cover:'http://192.168.1.101:8888/public/img/movie-cover/2.png'
+            cover:'http://192.168.1.102:8888/public/img/movie-cover/2.png'
             ,
             sessions:[
                 [
@@ -165,7 +165,7 @@ module.exports={
             id:4,
             rating:9.1,
             jiamjie:'101分钟|动作|爱玛.斯通',
-            cover:'http://192.168.1.101:8888/public/img/movie-cover/3.png'
+            cover:'http://192.168.1.102:8888/public/img/movie-cover/3.png'
             ,
             sessions:[
                 [
@@ -215,7 +215,7 @@ module.exports={
             id:5,
             rating:6.7,
             jiamjie:'101分钟|动作|马修.麦康纳',
-            cover:'http://192.168.1.101:8888/public/img/movie-cover/4.png'
+            cover:'http://192.168.1.102:8888/public/img/movie-cover/4.png'
             ,
             sessions:[
                 [

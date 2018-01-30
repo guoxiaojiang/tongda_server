@@ -29,8 +29,18 @@ router.get('/index',function (req,res) {
     responseData.code = 1;
     responseData.message='ok';
     responseData.data={
-        swiperImg:['http://192.168.1.101:8888/public/img/swiper/1.png','http://192.168.1.101:8888/public/img/swiper/2.png','http://192.168.1.101:8888/public/img/swiper/3.png'],
+        swiperImg:['http://192.168.1.102:8888/public/img/swiper/4.png','http://192.168.1.102:8888/public/img/swiper/5.png',
+            'http://192.168.1.102:8888/public/img/swiper/6.png','http://192.168.1.102:8888/public/img/swiper/7.png'],
         goodsList:viru.indexGoods
+    };
+    res.json(responseData);
+})
+router.get('/truncks/index',function (req,res) {
+    responseData.code = 1;
+    responseData.message='ok';
+    responseData.data={
+        swiperImg:['http://192.168.1.102:8888/public/img/swiper/1.png','http://192.168.1.102:8888/public/img/swiper/2.png','http://192.168.1.102:8888/public/img/swiper/3.png'],
+        trucks:viru.indexTrucks
     };
     res.json(responseData);
 })
