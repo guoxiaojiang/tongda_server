@@ -2,73 +2,112 @@
  * Created by Administrator on 2017/1/16.
  */
 var express = require('express');
-var viru=require('../models/viru');
-var theater=require('../models/theater')
-
+var viru = require('../models/viru');
 
 var router = express.Router();
 var responseData;
 
+var http=require('http');
+var url=require('url');
+var qs=require('querystring');//解析参数的库
 
-router.use( function(req, res, next) {
+var mongodb = require('mongodb').MongoClient;
+
+
+router.use(function (req, res, next) {
 
     responseData = {
         code: 0,
         message: ''
     }
     next();
-} );
-router.get('/positionlist',function (req,res) {
+});
+router.get('/positionlist', function (req, res) {
     responseData.code = 1;
-    responseData.message='ok';
-    responseData.li= viru.city;
+    responseData.message = 'ok';
+    responseData.li = viru.city;
 
     res.json(responseData);
 })
-router.get('/index',function (req,res) {
+router.get('/index', function (req, res) {
+
+    var arg=url.parse(req.url).query;
+    var count = qs.parse(arg)['counts'];
+    var start = qs.parse(arg)['start'];
+    console.log("count:" + count + ", start:" + start);
+
+
+    var dbUrl = "mongodb://tongda:guoxiaojiang5632@localhost:27017/tongda";
+    mongodb.connect(dbUrl, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("tongda");
+        dbo.collection("goods"). find({}).toArray(function(err, result) { // 返回集合中所有数据
+            if (err) throw err;
+            console.log(result);
+            responseData.code = 1;
+            responseData.message = 'ok';
+            responseData.data = {
+                swiperImg: ['http://tdtransport.cn:8888/public/img/swiper/4.png', 'http://tdtransport.cn:8888/public/img/swiper/5.png',
+                    'http://tdtransport.cn:8888/public/img/swiper/6.png', 'http://tdtransport.cn:8888/public/img/swiper/7.png'],
+                goodsList: result
+            };
+            res.json(responseData);
+            db.close();
+        });
+    });
+
+
+    // responseData.code = 1;
+    // responseData.message = 'ok';
+    // responseData.data = {
+    //     swiperImg: ['http://tdtransport.cn:8888/public/img/swiper/4.png', 'http://tdtransport.cn:8888/public/img/swiper/5.png',
+    //         'http://tdtransport.cn:8888/public/img/swiper/6.png', 'http://tdtransport.cn:8888/public/img/swiper/7.png'],
+    //     goodsList: viru.indexGoods
+    // };
+    // res.json(responseData);
+})
+router.get('/truncks/index', function (req, res) {
     responseData.code = 1;
-    responseData.message='ok';
-    responseData.data={
-        swiperImg:['http://192.168.1.102:8888/public/img/swiper/4.png','http://192.168.1.102:8888/public/img/swiper/5.png',
-            'http://192.168.1.102:8888/public/img/swiper/6.png','http://192.168.1.102:8888/public/img/swiper/7.png'],
-        goodsList:viru.indexGoods
+    responseData.message = 'ok';
+    responseData.data = {
+        swiperImg: ['http://tdtransport.cn:8888/public/img/swiper/1.png', 'http://tdtransport.cn:8888/public/img/swiper/2.png', 'http://tdtransport.cn:8888/public/img/swiper/3.png'],
+        trucks: viru.indexTrucks
     };
     res.json(responseData);
 })
-router.get('/truncks/index',function (req,res) {
-    responseData.code = 1;
-    responseData.message='ok';
-    responseData.data={
-        swiperImg:['http://192.168.1.102:8888/public/img/swiper/1.png','http://192.168.1.102:8888/public/img/swiper/2.png','http://192.168.1.102:8888/public/img/swiper/3.png'],
-        trucks:viru.indexTrucks
-    };
-    res.json(responseData);
-})
-router.get('/goodsDetail',function (req,res) {
-    var reqtitle=req.query.title
+router.get('/goodsDetail', function (req, res) {
+    var reqtitle = req.query.title
 
 
-    responseData.data=viru.good;
+    responseData.data = viru.good;
     responseData.code = 1;
     responseData.message = 'ok';
     res.json(responseData);
 })
-router.post('/search',function (req,res) {
-var key =req.body.key
-    if(key.length>4||key==''){
-        responseData.code=2;
-        responseData.message='没有找到相关';
-        res.json(responseData);
-    }
-    else {
-        responseData.code=200;
-        responseData.message='获取到相关';
-        responseData.data=theater.wanda
-        res.json(responseData)
-    }
+router.get('/truckDetail', function (req, res) {
+    responseData.data = viru.truck;
+    responseData.code = 1;
+    responseData.message = 'ok';
+    res.json(responseData);
+})
 
+router.post('/publish', function (req, res) {
+    var body = req.body;
+    console.log("publish body is:" + body.fromCity)
+    var url = "mongodb://tongda:guoxiaojiang5632@localhost:27017/tongda";
+    mongodb.connect(url, function (err, db) {
+        if (err) throw err;
+        console.log("db has connected");
 
-
+        db.collection("goods").insertOne(body, function (err, res) {
+            if (err) throw err;
+            console.log("文档插入成功");
+            db.close();
+        });
+    });
+    responseData.code = 1;
+    responseData.message = 'ok';
+    res.json(responseData);
 })
 
 
