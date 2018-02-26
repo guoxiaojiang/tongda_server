@@ -41,10 +41,14 @@ router.get('/index', function (req, res) {
     mongodb.connect(dbUrl, function(err, db) {
         if (err) throw err;
         var dbo = db.db("tongda");
-        dbo.collection("goods"). find({}).toArray(function(err, result) { // 返回集合中所有数据
+        dbo.collection("goods"). find({}).sort({"publishTime":-1}).limit(parseInt(count)).skip(parseInt(start)).toArray(function(err, result) { // 返回集合中所有数据
             if (err) throw err;
-            console.log(result);
-            responseData.code = 1;
+            console.log("result length:" + result.length);
+            if (result.length === 0) {
+                responseData.code = 2;
+            } else {
+                responseData.code = 1;
+            }
             responseData.message = 'ok';
             responseData.data = {
                 swiperImg: ['http://tdtransport.cn:8888/public/img/swiper/4.png', 'http://tdtransport.cn:8888/public/img/swiper/5.png',
@@ -56,15 +60,6 @@ router.get('/index', function (req, res) {
         });
     });
 
-
-    // responseData.code = 1;
-    // responseData.message = 'ok';
-    // responseData.data = {
-    //     swiperImg: ['http://tdtransport.cn:8888/public/img/swiper/4.png', 'http://tdtransport.cn:8888/public/img/swiper/5.png',
-    //         'http://tdtransport.cn:8888/public/img/swiper/6.png', 'http://tdtransport.cn:8888/public/img/swiper/7.png'],
-    //     goodsList: viru.indexGoods
-    // };
-    // res.json(responseData);
 })
 router.get('/truncks/index', function (req, res) {
     responseData.code = 1;
@@ -77,7 +72,6 @@ router.get('/truncks/index', function (req, res) {
 })
 router.get('/goodsDetail', function (req, res) {
     var reqtitle = req.query.title
-
 
     responseData.data = viru.good;
     responseData.code = 1;
@@ -93,7 +87,7 @@ router.get('/truckDetail', function (req, res) {
 
 router.post('/publish', function (req, res) {
     var body = req.body;
-    console.log("publish body is:" + body.fromCity)
+    console.log("publish phone is:" + body.phoneNum)
     var url = "mongodb://tongda:guoxiaojiang5632@localhost:27017/tongda";
     mongodb.connect(url, function (err, db) {
         if (err) throw err;
