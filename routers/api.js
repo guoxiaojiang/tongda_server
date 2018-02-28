@@ -85,6 +85,20 @@ router.get('/truckDetail', function (req, res) {
     res.json(responseData);
 })
 
+router.get('/verify', function (req, res) {
+    var arg=url.parse(req.url).query;
+    var phone = qs.parse(arg)['phone'];
+    var code="";
+    for(var i=0;i<4;i++){
+        code+=Math.floor(Math.random()*10)
+    }
+    console.log("suiji:"+code);
+    //给phone发送随机验证码
+    responseData.vcode = code;
+    responseData.message = 'ok';
+    res.json(responseData);
+})
+
 router.post('/publish', function (req, res) {
     var body = req.body;
     console.log("publish phone is:" + body.phoneNum)
