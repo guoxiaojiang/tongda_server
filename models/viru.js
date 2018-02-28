@@ -1,8 +1,8 @@
 module.exports = {
     good: {
-        coverImg: 'http://192.168.1.102:8888/public/img/pingguo.png',
-        coverImgs: ['http://192.168.1.102:8888/public/img/pingguo.png', 'http://192.168.1.102:8888/public/img/gangcai.png',
-            'http://192.168.1.102:8888/public/img/juzi.png'],
+        coverImg: 'http://tdtransport.cn:8888/public/img/pingguo.png',
+        coverImgs: ['http://tdtransport.cn:8888/public/img/pingguo.png', 'http://tdtransport.cn:8888/public/img/gangcai.png',
+            'http://tdtransport.cn:8888/public/img/juzi.png'],
         phoneNum: '15135172880',
         latitude: '35.5744033562',
         longitude: '111.2770843506',
@@ -21,7 +21,7 @@ module.exports = {
             publishTime: '01-25 10:00',
             deliverTime: '01-26 12:00',
             price: '面议',
-            coverImg: 'http://192.168.1.102:8888/public/img/pingguo.png'
+            coverImg: 'http://tdtransport.cn:8888/public/img/pingguo.png'
         },
         {
             id: 2,
@@ -31,7 +31,7 @@ module.exports = {
             publishTime: '01-21 11:07',
             deliverTime: '01-24 13:00',
             price: '3000',
-            coverImg: 'http://192.168.1.102:8888/public/img/gangcai.png'
+            coverImg: 'http://tdtransport.cn:8888/public/img/gangcai.png'
         },
         {
             id: 3,
@@ -41,7 +41,7 @@ module.exports = {
             publishTime: '01-20 11:02',
             deliverTime: '01-20 12:00',
             price: '5000',
-            coverImg: 'http://192.168.1.102:8888/public/img/juzi.png'
+            coverImg: 'http://tdtransport.cn:8888/public/img/juzi.png'
         },
         {
             id: 4,
@@ -51,7 +51,7 @@ module.exports = {
             publishTime: '01-13 10:07',
             deliverTime: '01-24 13:00',
             price: '面议',
-            coverImg: 'http://192.168.1.102:8888/public/img/feiliao.png'
+            coverImg: 'http://tdtransport.cn:8888/public/img/feiliao.png'
         },
         {
             id: 5,
@@ -61,7 +61,7 @@ module.exports = {
             publishTime: '12-21 10:00',
             deliverTime: '12-26 12:00',
             price: '面议',
-            coverImg: 'http://192.168.1.102:8888/public/img/pingguo.png'
+            coverImg: 'http://tdtransport.cn:8888/public/img/pingguo.png'
         },
         {
             id: 6,
@@ -71,7 +71,7 @@ module.exports = {
             publishTime: '01-03 11:02',
             deliverTime: '01-12 12:00',
             price: '1000',
-            coverImg: 'http://192.168.1.102:8888/public/img/mei.png'
+            coverImg: 'http://tdtransport.cn:8888/public/img/mei.png'
         },
         {
             id: 7,
@@ -81,7 +81,7 @@ module.exports = {
             publishTime: '01-03 11:02',
             deliverTime: '01-12 12:00',
             price: '10000.00',
-            coverImg: 'http://192.168.1.102:8888/public/img/sanlun.png'
+            coverImg: 'http://tdtransport.cn:8888/public/img/sanlun.png'
         },
         {
             id: 8,
@@ -91,7 +91,7 @@ module.exports = {
             publishTime: '01-03 11:02',
             deliverTime: '01-12 12:00',
             price: '2000.00',
-            coverImg: 'http://192.168.1.102:8888/public/img/xiangzi.png'
+            coverImg: 'http://tdtransport.cn:8888/public/img/xiangzi.png'
         },
         {
             id: 9,
@@ -101,7 +101,7 @@ module.exports = {
             publishTime: '01-13 10:07',
             deliverTime: '01-24 13:00',
             price: '面议',
-            coverImg: 'http://192.168.1.102:8888/public/img/feiliao.png'
+            coverImg: 'http://tdtransport.cn:8888/public/img/feiliao.png'
         },
         {
             id: 10,
@@ -111,7 +111,7 @@ module.exports = {
             publishTime: '01-21 11:07',
             deliverTime: '01-24 13:00',
             price: '3000',
-            coverImg: 'http://192.168.1.102:8888/public/img/gangcai.png'
+            coverImg: 'http://tdtransport.cn:8888/public/img/gangcai.png'
         },
         {
             id: 11,
@@ -121,55 +121,55 @@ module.exports = {
             publishTime: '01-13 11:07',
             deliverTime: '01-14 13:00',
             price: '4000',
-            coverImg: 'http://192.168.1.102:8888/public/img/mei.png'
+            coverImg: 'http://tdtransport.cn:8888/public/img/mei.png'
         }
     ],
     indexTrucks: [
         {
             id: 1,
-            image: 'http://192.168.1.102:8888/public/img/trucks/t1.png',
+            image: 'http://tdtransport.cn:8888/public/img/trucks/t1.png',
             title: '东风',
             distance: '2.5',
             load: '10.0'
         },
         {
             id: 2,
-            image: 'http://192.168.1.102:8888/public/img/trucks/t2.png',
+            image: 'http://tdtransport.cn:8888/public/img/trucks/t2.png',
             title: '康明斯',
             distance: '19.0',
             load: '6.0'
         },
         {
             id: 3,
-            image: 'http://192.168.1.102:8888/public/img/trucks/t3.png',
+            image: 'http://tdtransport.cn:8888/public/img/trucks/t3.png',
             title: '通达牌车',
             distance: '12.4',
             load: '8.5'
         },
         {
             id: 4,
-            image: 'http://192.168.1.102:8888/public/img/trucks/t4.png',
+            image: 'http://tdtransport.cn:8888/public/img/trucks/t4.png',
             title: '如图',
             distance: '10.1',
             load: '7.0'
         },
         {
             id: 5,
-            image: 'http://192.168.1.102:8888/public/img/trucks/t5.png',
+            image: 'http://tdtransport.cn:8888/public/img/trucks/t5.png',
             title: '小型装货车',
             distance: '105.0',
             load: '5.0'
         },
         {
             id: 6,
-            image: 'http://192.168.1.102:8888/public/img/trucks/t6.png',
+            image: 'http://tdtransport.cn:8888/public/img/trucks/t6.png',
             title: '时风',
             distance: '5.0',
             load: '3.0'
         }
     ],
     truck: {
-        coverImgs: ['http://192.168.1.102:8888/public/img/trucks/t1.png'],
+        coverImgs: ['http://tdtransport.cn:8888/public/img/trucks/t1.png'],
         lines: '新绛--侯马;  新绛--稷山;  新绛--河津;  新绛--西安;  新绛--太原; 新绛--呼和浩特',
         avatar: 'http://img4.imgtn.bdimg.com/it/u=1604572056,73487110&fm=27&gp=0.jpg',
         nick: '这是我的昵称',
