@@ -57,8 +57,8 @@ router.get('/index', function (req, res) {
             }
             responseData.message = 'ok';
             responseData.data = {
-                swiperImg: ['http://tdtransport.cn:8888/public/img/swiper/4.png', 'http://tdtransport.cn:8888/public/img/swiper/5.png',
-                    'http://tdtransport.cn:8888/public/img/swiper/6.png', 'http://tdtransport.cn:8888/public/img/swiper/7.png'],
+                swiperImg: ['http://211.159.175.56:8888/public/img/swiper/4.png', 'http://211.159.175.56:8888/public/img/swiper/5.png',
+                    'http://211.159.175.56:8888/public/img/swiper/6.png', 'http://211.159.175.56:8888/public/img/swiper/7.png'],
                 goodsList: result
             };
             res.json(responseData);
@@ -71,7 +71,7 @@ router.get('/truncks/index', function (req, res) {
     responseData.code = 1;
     responseData.message = 'ok';
     responseData.data = {
-        swiperImg: ['http://tdtransport.cn:8888/public/img/swiper/1.png', 'http://tdtransport.cn:8888/public/img/swiper/2.png', 'http://tdtransport.cn:8888/public/img/swiper/3.png'],
+        swiperImg: ['http://211.159.175.56:8888/public/img/swiper/1.png', 'http://211.159.175.56:8888/public/img/swiper/2.png', 'http://211.159.175.56:8888/public/img/swiper/3.png'],
         trucks: viru.indexTrucks
     };
     res.json(responseData);
