@@ -16,8 +16,11 @@ var mongodb = require('mongodb').MongoClient;
 var QcloudSms = require("../qcloudsms_js");
 var appid = 1400070292;
 var appkey = "d749d35ca6d1964d99827e0bc871c4d2";
-var templId = 89987;
+var templId = 91711;
 var qcloudsms = QcloudSms(appid, appkey);
+
+exports.__esModule = true;
+var multer = require("multer"); 
 
 
 router.use(function (req, res, next) {
@@ -110,10 +113,42 @@ router.get('/verify', function (req, res) {
     //给phone发送随机验证码
     var ssender = qcloudsms.SmsSingleSender();
     var params = [code];
+	//先注掉吧，省短信
     ssender.sendWithParam(86, phone, templId, params, "", "", "", callback);
     responseData.vcode = code;
     responseData.message = 'ok';
     res.json(responseData);
+})
+
+router.get('/login', function (req, res) {
+    var arg = url.parse(req.url).query;
+    var phone = qs.parse(arg)['phone'];
+    var pwd = qs.parse(arg)['pwd'];
+ 
+	var code = 0;
+	
+	var dburl = "mongodb://tongda:guoxiaojiang5632@localhost:27017/tongda";
+	
+	if (phone) {
+		mongodb.connect(dburl, function (err, db) {
+        if (err) throw err;
+		var whereStr = {"phoneNum":phone}
+		console.log("phone is:" + phone)
+		
+		db.collection("user").findOne(whereStr, function(err, result) {
+			if (result) {
+				if (pwd === result.pwd) {
+					code = 1;	
+				}
+			}
+			db.close();
+			responseData.code = code;
+			responseData.message = 'ok';
+			res.json(responseData);
+		});
+    });
+	}
+    
 })
 
 router.post('/publish', function (req, res) {
@@ -134,6 +169,59 @@ router.post('/publish', function (req, res) {
     responseData.message = 'ok';
     res.json(responseData);
 })
+
+router.post('/register', function (req, res) {
+    var body = req.body;
+    console.log("register pwd is:" + body.pwd, ", phone is :" + body.phoneNum)
+    var url = "mongodb://tongda:guoxiaojiang5632@localhost:27017/tongda";
+    mongodb.connect(url, function (err, db) {
+        if (err) throw err;
+        console.log("db has connected");
+		var whereStr = {"phoneNum":body.phoneNum}
+		db.collection("user").find(whereStr).toArray(function(err, result) {
+			if (result.length !== 0) {
+				//已经存在，update操作
+				db.collection("user").updateOne(whereStr, {$set:{'pwd':body.pwd}}, function(err, res) {
+					if (err) throw err;
+					console.log("pwd更新成功");
+					db.close();
+				});
+			} else {
+				db.collection("user").insertOne(body, function(err, res) {
+					if (err) throw err;
+					console.log("user 插入成功");
+					db.close();
+				});
+			}
+		});
+    });
+    responseData.code = 1;
+    responseData.message = 'ok';
+    res.json(responseData);
+})
+
+
+var storage = multer.diskStorage({ 
+    destination: function(req, file, cb) { 
+        cb(null, './uploads'); 
+    }, 
+    filename: function(req, file, cb) { 
+        cb(null, `${Date.now()}-${file.originalname}`) 
+    } 
+}) 
+
+var upload = multer({ storage: storage }); 
+//var cpUpload = upload.fields([{ name: 'imgfile', maxCount: 12 }]) 
+router.post('/uploadPic', upload.single('file'), function(req, res, next) { 
+    var files = req.files 
+    console.log(files) 
+    if (!files[0]) { 
+        res.send('error'); 
+    } else { 
+        res.send('success'); 
+    }    
+    console.log(files); 
+}) 
 
 
 module.exports = router;
