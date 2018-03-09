@@ -5,6 +5,7 @@ app.use( bodyParser.urlencoded({extended: true}) );
 
 
 app.use( '/public', express.static( __dirname + '/public') );
+app.use( '/uploads', express.static( __dirname + '/uploads') );
 app.use('/api', require('./routers/api'));
 
 

@@ -12,6 +12,7 @@ var url=require('url');
 var qs=require('querystring');//解析参数的库
 
 var mongodb = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;  
 
 var QcloudSms = require("../qcloudsms_js");
 var appid = 1400070292;
@@ -67,6 +68,32 @@ router.get('/index', function (req, res) {
             res.json(responseData);
             db.close();
         });
+    });
+
+})
+
+router.get('/detail', function (req, res) {
+
+    var arg=url.parse(req.url).query;
+    var id = qs.parse(arg)['id'];
+    console.log("id:" + id );
+	
+    var dbUrl = "mongodb://tongda:guoxiaojiang5632@localhost:27017/tongda";
+    mongodb.connect(dbUrl, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("tongda");
+        dbo.collection("goods").findOne({"_id":ObjectId(id)} , function(err, result) {
+			var code = -1
+			if (result) {
+				responseData.data=result
+				console.log("result is:" + result);
+				code = 1
+			}
+			db.close();
+			responseData.code = code;
+			responseData.message = 'ok';
+			res.json(responseData);
+		}); 
     });
 
 })
@@ -153,12 +180,11 @@ router.get('/login', function (req, res) {
 
 router.post('/publish', function (req, res) {
     var body = req.body;
-    console.log("publish phone is:" + body.phoneNum)
+    console.log("publish coverImgs is:" + body.coverImgs + ", type:" + typeof(body.coverImgs))
     var url = "mongodb://tongda:guoxiaojiang5632@localhost:27017/tongda";
     mongodb.connect(url, function (err, db) {
         if (err) throw err;
         console.log("db has connected");
-
         db.collection("goods").insertOne(body, function (err, res) {
             if (err) throw err;
             console.log("文档插入成功");
@@ -211,16 +237,14 @@ var storage = multer.diskStorage({
 }) 
 
 var upload = multer({ storage: storage }); 
-//var cpUpload = upload.fields([{ name: 'imgfile', maxCount: 12 }]) 
+//var cpUpload = upload.fields([{ name: 'imgfile', maxCount: 12 }])
+ 
 router.post('/uploadPic', upload.single('file'), function(req, res, next) { 
-    var files = req.files 
-    console.log(files) 
-    if (!files[0]) { 
-        res.send('error'); 
-    } else { 
-        res.send('success'); 
-    }    
-    console.log(files); 
+	responseData.code = 1;
+    responseData.message = 'ok';
+	responseData.couldPath = "/" + req.file.path.replace("\\", "/")
+    res.json(responseData); 
+	
 }) 
 
 
