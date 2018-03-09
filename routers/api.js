@@ -20,8 +20,10 @@ var appkey = "d749d35ca6d1964d99827e0bc871c4d2";
 var templId = 91711;
 var qcloudsms = QcloudSms(appid, appkey);
 
+var bodyParser =require('body-parser');
+
 exports.__esModule = true;
-var multer = require("multer"); 
+var multer = require("multer");
 
 
 router.use(function (req, res, next) {
@@ -32,6 +34,7 @@ router.use(function (req, res, next) {
     }
     next();
 });
+router.use(bodyParser.json)
 router.get('/positionlist', function (req, res) {
     responseData.code = 1;
     responseData.message = 'ok';
