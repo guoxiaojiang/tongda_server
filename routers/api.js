@@ -34,7 +34,7 @@ router.use(function (req, res, next) {
     }
     next();
 });
-router.use(bodyParser.json)
+//router.use(bodyParser.json)
 router.get('/positionlist', function (req, res) {
     responseData.code = 1;
     responseData.message = 'ok';
@@ -48,13 +48,15 @@ router.get('/index', function (req, res) {
     var count = qs.parse(arg)['counts'];
     var start = qs.parse(arg)['start'];
     console.log("count:" + count + ", start:" + start);
-
-
+	
+	//coverImg、goodsName、fromCity、toCity、deliverDate、deliverTime、price
+	
     var dbUrl = "mongodb://tongda:guoxiaojiang5632@localhost:27017/tongda";
     mongodb.connect(dbUrl, function(err, db) {
         if (err) throw err;
         var dbo = db.db("tongda");
-        dbo.collection("goods"). find({}).sort({"publishTime":-1}).limit(parseInt(count)).skip(parseInt(start)).toArray(function(err, result) { // 返回集合中所有数据
+        dbo.collection("goods"). find({}, {"coverImg":1, "goodsName":1, "fromCity":1, "toCity":1, "deliverDate":1, "deliverTime":1, "price":1})
+		.sort({"publishTime":-1}).limit(parseInt(count)).skip(parseInt(start)).toArray(function(err, result) { // 返回集合中所有数据
             if (err) throw err;
             console.log("result length:" + result.length);
             if (result.length === 0) {
@@ -79,7 +81,6 @@ router.get('/detail', function (req, res) {
 
     var arg=url.parse(req.url).query;
     var id = qs.parse(arg)['id'];
-    console.log("id:" + id );
 	
     var dbUrl = "mongodb://tongda:guoxiaojiang5632@localhost:27017/tongda";
     mongodb.connect(dbUrl, function(err, db) {
@@ -89,7 +90,6 @@ router.get('/detail', function (req, res) {
 			var code = -1
 			if (result) {
 				responseData.data=result
-				console.log("result is:" + result);
 				code = 1
 			}
 			db.close();
@@ -184,6 +184,9 @@ router.get('/login', function (req, res) {
 router.post('/publish', function (req, res) {
     var body = req.body;
     console.log("publish coverImgs is:" + body.coverImgs + ", type:" + typeof(body.coverImgs))
+	if (body.coverImgs) {
+		body.coverImgs = body.coverImgs.split(",")
+	}
     var url = "mongodb://tongda:guoxiaojiang5632@localhost:27017/tongda";
     mongodb.connect(url, function (err, db) {
         if (err) throw err;
